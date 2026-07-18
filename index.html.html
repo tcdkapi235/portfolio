@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moustapha — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a1210;
+    --bg-panel: #0e1a15;
+    --bg-panel-2: #0c1713;
+    --copper: #c17f3e;
+    --copper-bright: #e6a868;
+    --silk: #eae7dc;
+    --phosphor: #4ade9c;
+    --muted: #6f8279;
+    --border: #1e2e27;
+    --border-bright: #2c4438;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    background-image:
+      linear-gradient(rgba(193,127,62,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(193,127,62,0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+    color: var(--silk);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--copper); color: #0a1210; }
+
+  a { color: inherit; }
+
+  .mono{ font-family: 'IBM Plex Mono', monospace; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Trace connectors between sections ---------- */
+  .trace{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+  }
+  .trace svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .trace path { fill: none; stroke: var(--border-bright); stroke-width: 1.5; }
+  .trace circle { fill: var(--bg); stroke: var(--copper); stroke-width: 1.5; }
+
+  /* ---------- Header / Hero ---------- */
+  header{
+    padding: 90px 0 50px;
+    position: relative;
+  }
+
+  .pin1{
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--phosphor);
+    box-shadow: 0 0 10px var(--phosphor), 0 0 24px rgba(74,222,156,0.4);
+    display: inline-block;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .eyebrow{
+    display: flex;
+    align-items: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  h1{
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(38px, 7vw, 64px);
+    color: var(--silk);
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  .cursor{
+    display: inline-block;
+    width: 0.55em;
+    height: 0.85em;
+    background: var(--phosphor);
+    margin-left: 4px;
+    vertical-align: -0.08em;
+    animation: blink 1s steps(1) infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .cursor{ animation: none; opacity: 1; } }
+  @keyframes blink{ 50% { opacity: 0; } }
+
+  .tagline{
+    margin-top: 22px;
+    max-width: 560px;
+    color: #b7c2bb;
+    font-size: 17px;
+  }
+
+  .tagline strong{ color: var(--copper-bright); font-weight: 600; }
+
+  .hero-meta{
+    margin-top: 34px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta span b{ color: var(--phosphor); font-weight: 600; }
+
+  /* ---------- Section label ---------- */
+  .section{ padding: 10px 0 60px; }
+  .label-row{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .label-row .idx{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--bg);
+    background: var(--copper);
+    padding: 3px 7px;
+    border-radius: var(--radius);
+    font-weight: 600;
+  }
+  .label-row h2{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .label-row .rule{
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ---------- About panel ---------- */
+  .about-panel{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--copper);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    color: #c3cec7;
+    font-size: 15.5px;
+  }
+  .about-panel p + p{ margin-top: 14px; }
+
+  /* ---------- Projects as IC chips ---------- */
+  .chip-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px 22px;
+  }
+  @media (max-width: 700px){ .chip-grid{ grid-template-columns: 1fr; } }
+
+  .chip{
+    position: relative;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px 22px 28px;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .chip:hover{
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  /* pin legs */
+  .chip::before, .chip::after{
+    content: "";
+    position: absolute;
+    left: 10px; right: 10px;
+    height: 1px;
+    background-image: repeating-linear-gradient(90deg, var(--copper) 0 6px, transparent 6px 14px);
+    opacity: 0.55;
+  }
+  .chip::before{ top: -1px; }
+  .chip::after{ bottom: -1px; }
+
+  .chip-id{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--copper-bright);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .chip h3{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 17px;
+    color: var(--silk);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .chip p{
+    font-size: 14.5px;
+    color: #a9b6af;
+    margin-bottom: 16px;
+  }
+  .tags{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .tag{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--border-bright);
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .chip-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--phosphor);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .chip-link:hover{ border-bottom-color: var(--phosphor); }
+
+  /* ---------- Skills ---------- */
+  .skill-groups{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+  @media (max-width: 700px){ .skill-groups{ grid-template-columns: 1fr; } }
+  .skill-group{
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+  .skill-group h4{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--copper-bright);
+    margin-bottom: 12px;
+  }
+  .skill-list{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-item{
+    display: flex; align-items: center; gap: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: #c3cec7;
+  }
+  .skill-item .led{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--phosphor);
+    box-shadow: 0 0 6px rgba(74,222,156,0.7);
+  }
+
+  /* ---------- Contact as pin header ---------- */
+  footer{ padding: 20px 0 90px; }
+  .connector{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px 28px;
+    text-align: center;
+  }
+  .connector h2{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 24px;
+    color: var(--silk);
+    margin-bottom: 10px;
+  }
+  .connector p{ color: var(--muted); font-size: 14.5px; margin-bottom: 26px; }
+
+  .pin-header{
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .pin{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--silk);
+    border: 1px solid var(--border-bright);
+    padding: 10px 18px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .pin::before{
+    content: "";
+    width: 5px; height: 5px;
+    background: var(--copper);
+    border-radius: 50%;
+  }
+  .pin:hover{ border-color: var(--phosphor); color: var(--phosphor); }
+  .pin:hover::before{ background: var(--phosphor); }
+
+  .foot-note{
+    text-align: center;
+    color: var(--border-bright);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    margin-top: 34px;
+    letter-spacing: 0.05em;
+  }
+
+  .fade-in{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-in.visible{ opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .fade-in{ opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="eyebrow"><span class="pin1"></span>PORTFOLIO // DEV &amp; ÉTUDIANT MATH-INFO</div>
+  <h1 id="hero-name">MOUSTAPHA ABAKAR <span class="cursor"></span></h1>
+  <p class="tagline">Étudiant en <strong>Informatique &amp; Mathématiques</strong> </p>
+  <div class="hero-meta">
+    <span>STATUT: <b>ÉTUDIANT L1 — MATH-INFO</b></span>
+    <span>STACK: <b>C · PYTHON · FLASK · JS</b></span>
+    <span>LOCALISATION 1: <b>N'DJAMENA, TD</b></span>
+    <span>LOCALISATION 2: <b>Algerie, Mascara 29</b></span>
+  </div>
+</header>
+
+<div class="trace">
+  <svg viewBox="0 0 940 46" preserveAspectRatio="none">
+    <path d="M0,23 H420 L460,10 H940" />
+    <circle cx="460" cy="10" r="4"/>
+  </svg>
+</div>
+
+<section class="section wrap" id="about">
+  <div class="label-row">
+    <span class="idx">01</span>
+    <h2>À propos</h2>
+    <span class="rule"></span>
+  </div>
+  <div class="about-panel fade-in">
+    <p>Je m'appelle Moustapha Abakar Moustapha et je suis étudiant en première année de Licence en Informatique. Passionné par les technologies, je m'intéresse particulièrement au développement logiciel, à l'intelligence artificielle et à la cybersécurité.</p>
+    <p>Au cours de mon parcours, j'ai déjà réalisé plusieurs projets, notamment :</p>
+    <p> - Une calculatrice en Python, capable d'effectuer les opérations arithmétiques de base à travers une interface simple.</p>
+    <p> - Une calculatrice de logique numérique (STM) permettant de simuler des circuits combinatoires tels que les Half Adders (demi-additionneurs), les Décodeurs/Démultiplexeurs (Demultiplexers / DEMUX) ainsi que d'autres opérations de logique numérique étudiées en architecture des machines.</p>
+    <p> - Une application de gestion d'hôpital développée en langage C, permettant de gérer les informations des patients, les médecins, les consultations et l'organisation des données médicales.</p>
+    <p>Mon objectif est de devenir un ingénieur informatique hautement qualifié, spécialisé en intelligence artificielle et en cybersécurité, tout en développant des solutions innovantes capables de résoudre des problèmes réels.</p>
+    <p>Ce portfolio rassemble mes projets, mes compétences techniques, mon parcours académique et les expériences qui témoignent de ma progression dans le domaine de l'informatique. Je considère chaque projet comme une opportunité d'apprendre, d'innover et de perfectionner mes compétences en développement logiciel.</p>
+  </div>
+</section>
+
+<div class="trace">
+  <svg viewBox="0 0 940 46" preserveAspectRatio="none">
+    <path d="M0,10 H500 L540,23 H940" />
+    <circle cx="540" cy="23" r="4"/>
+  </svg>
+</div>
+
+<section class="section wrap" id="projects">
+  <div class="label-row">
+    <span class="idx">02</span>
+    <h2>Projets</h2>
+    <span class="rule"></span>
+  </div>
+
+  <div class="chip-grid">
+
+    <div class="chip fade-in">
+      <div class="chip-id">U1 // CALC-SCI</div>
+      <h3>Calculatrice scientifique &amp; traceur</h3>
+      <p>Application Flask combinant calcul scientifique et traçage de fonctions, avec un moteur symbolique et une interface façon carte électronique.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SymPy</span><span class="tag">Matplotlib</span></div>
+      <a href="#" class="chip-link">» voir le code source</a>
+    </div>
+
+    <div class="chip fade-in">
+      <div class="chip-id">U2 // LOGIC-TOOLS</div>
+      <h3>Boîte à outils logique</h3>
+      <p>Outil multi-fonction : arithmétique binaire, résolution de tables de Karnaugh, et génération de schémas de portes logiques en SVG.</p>
+      <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SVG</span></div>
+      <a href="#" class="chip-link">» voir le code source</a>
+    </div>
+
+    <div class="chip fade-in">
+      <div class="chip-id">U3 // MED-RECORDS</div>
+      <h3>Gestion de dossiers médicaux</h3>
+      <p>Programme en C manipulant des structures et des fichiers binaires pour gérer patients et médecins, avec recherche et tri via qsort.</p>
+      <div class="tags"><span class="tag">C</span><span class="tag">Fichiers binaires</span><span class="tag">Structures</span></div>
+      <a href="#" class="chip-link">» voir le code source</a>
+    </div>
+
+    <div class="chip fade-in">
+      <div class="chip-id">U4 // LINKED-LIST</div>
+      <h3>Manipulation de listes chaînées</h3>
+      <p>Implémentation en C des opérations classiques : insertion, suppression, traversée et tri sur des listes chaînées dynamiques.</p>
+      <div class="tags"><span class="tag">C</span><span class="tag">Algorithmique</span></div>
+      <a href="#" class="chip-link">» voir le code source</a>
+    </div>
+
+    <div class="chip fade-in">
+      <div class="chip-id">U5 // EL-MANUAL-FR</div>
+      <h3>Traduction technique — électronique</h3>
+      <p>Traduction complète d'un manuel de 176 pages (semi-conducteurs, transistors BJT/FET, amplis opérationnels) de l'anglais vers le français.</p>
+      <div class="tags"><span class="tag">Électronique</span><span class="tag">Traduction technique</span></div>
+      <a href="#" class="chip-link">» voir le document</a>
+    </div>
+
+    <div class="chip fade-in">
+      <div class="chip-id">U6 // SPINE-ANIM</div>
+      <h3>Animation créative — colonne de serpent</h3>
+      <p>Exploration de code créatif : animation d'une colonne vertébrale de serpent, réalisée à la fois en HTML Canvas et en C avec SDL2.</p>
+      <div class="tags"><span class="tag">C</span><span class="tag">SDL2</span><span class="tag">Canvas</span></div>
+      <a href="#" class="chip-link">» voir le code source</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="trace">
+  <svg viewBox="0 0 940 46" preserveAspectRatio="none">
+    <path d="M0,23 H420 L460,10 H940" />
+    <circle cx="460" cy="10" r="4"/>
+  </svg>
+</div>
+
+<section class="section wrap" id="skills">
+  <div class="label-row">
+    <span class="idx">03</span>
+    <h2>Compétences</h2>
+    <span class="rule"></span>
+  </div>
+
+  <div class="skill-groups">
+    <div class="skill-group fade-in">
+      <h4>Langages</h4>
+      <div class="skill-list">
+        <span class="skill-item"><span class="led"></span>C</span>
+        <span class="skill-item"><span class="led"></span>Python</span>
+        <span class="skill-item"><span class="led"></span>JavaScript</span>
+        <span class="skill-item"><span class="led"></span>HTML / CSS</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <h4>Frameworks &amp; librairies</h4>
+      <div class="skill-list">
+        <span class="skill-item"><span class="led"></span>Flask</span>
+        <span class="skill-item"><span class="led"></span>SymPy</span>
+        <span class="skill-item"><span class="led"></span>Matplotlib</span>
+        <span class="skill-item"><span class="led"></span>SDL2</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <h4>Concepts</h4>
+      <div class="skill-list">
+        <span class="skill-item"><span class="led"></span>Structures de données</span>
+        <span class="skill-item"><span class="led"></span>Algorithmique</span>
+        <span class="skill-item"><span class="led"></span>Calcul différentiel</span>
+        <span class="skill-item"><span class="led"></span>Électronique analogique</span>
+      </div>
+    </div>
+    <div class="skill-group fade-in">
+      <h4>Outils</h4>
+      <div class="skill-list">
+        <span class="skill-item"><span class="led"></span>Git / GitHub</span>
+        <span class="skill-item"><span class="led"></span>VS Code</span>
+        <span class="skill-item"><span class="led"></span>Linux</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trace">
+  <svg viewBox="0 0 940 46" preserveAspectRatio="none">
+    <path d="M0,10 H940" />
+  </svg>
+</div>
+
+<footer class="wrap" id="contact">
+  <div class="connector fade-in">
+    <h2>Contactons-nous</h2>
+    <p>Ouvert aux collaborations, stages, et discussions techniques.</p>
+    <div class="pin-header">
+      <a class="pin" href="tcdkapi@gmail.com">EMAIL</a>
+      <a class="pin" href="https://github.com/tcdkapi235" target="_blank" rel="noopener">GITHUB</a>
+      <a class="pin" href="+23562217782" target="_blank" rel="noopener">WHATSAPP</a>
+    </div>
+  </div>
+  <div class="foot-note">// COMPILED WITH CARE — 2026</div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+  }
+</script>
+
+</body>
+</html>
